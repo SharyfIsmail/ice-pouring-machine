@@ -94,7 +94,6 @@ public class Contactors_0CFEF301 implements DataFromDevice {
 //        }
        public static void setPrechargeState(short data)
        {
-
            if(precharge.containsKey(data & 1))
            {
                precharge.put(data & 1, true);

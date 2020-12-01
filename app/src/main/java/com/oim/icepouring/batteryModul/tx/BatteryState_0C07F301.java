@@ -5,7 +5,7 @@ import com.oim.icepouring.can.candata.DataFromDevice;
 import java.util.HashMap;
 import java.util.Map;
 
-public class batteryState_0C07F301 implements DataFromDevice {
+public class BatteryState_0C07F301 implements DataFromDevice {
     private String bmsStatus;
 
     public String getBmsStatus() {

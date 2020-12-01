@@ -31,6 +31,10 @@ public class UsbConnector implements UsbService {
         return device;
     }
 
+    public UsbDeviceConnection getUsbConnection()
+    {
+        return usbConnection;
+    }
     @Override
     public void connect() throws Exception {
         UsbManager mUsbManger = (UsbManager) activity.getSystemService(Context.USB_SERVICE);
