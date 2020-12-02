@@ -5,12 +5,14 @@ import com.oim.icepouring.util.Parser;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class Contactors_0CFEF301 implements DataFromDevice {
     private byte prechargeState ;
     private byte plusState ;
     private byte groundState ;
     private short contactorState;
+    private ContactorError contactorError = new ContactorError();
 
     public short getContactorState() {
         return contactorState;
@@ -54,15 +56,15 @@ public class Contactors_0CFEF301 implements DataFromDevice {
             byte[] partArray = new byte[2];
             System.arraycopy(data, 4, partArray, 0, partArray.length);
             contactorState = (short) Parser.LittleIndianParser.uint_16ToInt(partArray);
-            ContactorError.setGroundState(contactorState);
-            ContactorError.setPlusState(contactorState);
-            ContactorError.setPrechargeState(contactorState);
-            ContactorError.setSensorState(contactorState);
+            contactorError.setGroundState(contactorState);
+            contactorError.setPlusState(contactorState);
+            contactorError.setPrechargeState(contactorState);
+            contactorError.setSensorState(contactorState);
         }
     }
-    public static class ContactorError
+    public  class ContactorError
     {
-        public static Map<Integer, Boolean> precharge = new HashMap<>();
+        public  Map<Integer, Boolean> precharge = new ConcurrentHashMap<>();
 //        static
 //        {
 //            precharge.put(1, false);
@@ -70,14 +72,14 @@ public class Contactors_0CFEF301 implements DataFromDevice {
 //            precharge.put(4, false);
 //        }
 
-        public static Map<Integer, Boolean> plus = new HashMap<>();
+        public  Map<Integer, Boolean> plus = new HashMap<>();
 //        static
 //        {
 //            plus.put(8, false);
 //            plus.put(16, false);
 //            plus.put(32, false);
 //        }
-        public static Map<Integer, Boolean> ground = new HashMap<>();
+        public  Map<Integer, Boolean> ground = new HashMap<>();
 //        static
 //        {
 //            ground.put(64, false);
@@ -85,14 +87,14 @@ public class Contactors_0CFEF301 implements DataFromDevice {
 //            ground.put(256, false);
 //        }
 
-        public static Map<Integer, Boolean> sensor = new HashMap<>();
+        public  Map<Integer, Boolean> sensor = new HashMap<>();
 //        static
 //        {
 //            sensor.put(512, false);
 //            sensor.put(1024, false);
 //
 //        }
-       public static void setPrechargeState(short data)
+       public  void setPrechargeState(short data)
        {
            if(precharge.containsKey(data & 1))
            {
@@ -116,7 +118,7 @@ public class Contactors_0CFEF301 implements DataFromDevice {
                 precharge.put( 4, false);
 
        }
-       public static void setPlusState(short data)
+       public  void setPlusState(short data)
        {
            if(plus.containsKey(data & 8))
            {
@@ -138,7 +140,7 @@ public class Contactors_0CFEF301 implements DataFromDevice {
            else
                plus.put(32, false);
        }
-       public static void setGroundState(short data)
+       public  void setGroundState(short data)
        {
            if(ground.containsKey(data & 64))
            {
@@ -160,7 +162,7 @@ public class Contactors_0CFEF301 implements DataFromDevice {
            else
                ground.put(256, false);
        }
-       public static void setSensorState(short data)
+       public  void setSensorState(short data)
        {
            if(sensor.containsKey(data & 512))
            {
