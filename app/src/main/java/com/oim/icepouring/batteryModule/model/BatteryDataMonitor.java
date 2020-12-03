@@ -1,7 +1,6 @@
-package com.oim.icepouring.batteryModul.model;
+package com.oim.icepouring.batteryModule.model;
 
-import com.oim.icepouring.batteryModul.tx.BatteryState_0C07F301;
-import com.oim.icepouring.batteryModul.tx.Contactors_0CFEF301;
+import com.oim.icepouring.batteryModule.tx.Contactors_0CFEF301;
 import com.oim.icepouring.can.candata.DataFromDeviceModel;
 
 import java.util.HashMap;
@@ -23,6 +22,7 @@ public class BatteryDataMonitor
         dataModel.put(0x0810FFFF, battery_0810FFFF_model);
         dataModel.put(0x0C07F301,batteryState_0C07F301_model);
         dataModel.put(0x0CFEF301, contactors_0CFEF301_model);
+        ((Contactors_0CFEF301)contactors_0CFEF301_model.getDataFromDevice()).getContactorError().getGround().get(1);
     }
 
     public Map<Integer, DataFromDeviceModel> getDataModel() {

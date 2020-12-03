@@ -1,9 +1,8 @@
-package com.oim.icepouring.batteryModul.tx;
+package com.oim.icepouring.batteryModule.tx;
 
 import com.oim.icepouring.can.candata.DataFromDevice;
 import com.oim.icepouring.util.Parser;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -46,6 +45,8 @@ public class Contactors_0CFEF301 implements DataFromDevice {
         this.groundState = groundState;
     }
 
+    public ContactorError getContactorError (){return contactorError ; }
+
     @Override
     public void parseDataFromCan(byte[] data) {
         if(data.length == 8) {
@@ -62,120 +63,111 @@ public class Contactors_0CFEF301 implements DataFromDevice {
             contactorError.setSensorState(contactorState);
         }
     }
-    public  class ContactorError
+    public static class ContactorError
     {
-        public  Map<Integer, Boolean> precharge = new ConcurrentHashMap<>();
-//        static
-//        {
-//            precharge.put(1, false);
-//            precharge.put(2, false);
-//            precharge.put(4, false);
-//        }
+        private  Map<Integer, String> precharge = new ConcurrentHashMap<>();
+        private  Map<Integer, String> plus = new ConcurrentHashMap<>();
+        private  Map<Integer, String> ground = new ConcurrentHashMap<>();
+        private  Map<Integer, String> sensor = new ConcurrentHashMap<>();
 
-        public  Map<Integer, Boolean> plus = new HashMap<>();
-//        static
-//        {
-//            plus.put(8, false);
-//            plus.put(16, false);
-//            plus.put(32, false);
-//        }
-        public  Map<Integer, Boolean> ground = new HashMap<>();
-//        static
-//        {
-//            ground.put(64, false);
-//            ground.put(128, false);
-//            ground.put(256, false);
-//        }
+        public Map<Integer, String> getPrecharge() {
+            return precharge;
+        }
 
-        public  Map<Integer, Boolean> sensor = new HashMap<>();
-//        static
-//        {
-//            sensor.put(512, false);
-//            sensor.put(1024, false);
-//
-//        }
-       public  void setPrechargeState(short data)
+        public Map<Integer, String> getPlus() {
+            return plus;
+        }
+
+        public Map<Integer, String> getGround() {
+            return ground;
+        }
+
+        public Map<Integer, String> getSensor() {
+            return sensor;
+        }
+
+        public  void setPrechargeState(short data)
        {
-           if(precharge.containsKey(data & 1))
+
+           if((data & 1) == 1)
            {
-               precharge.put(data & 1, true);
+               precharge.put( 1, "Precharge Open Load");
            }
            else
-               precharge.put(1, false);
+               precharge.remove( 1);
 
-          if(precharge.containsKey(data & 2))
+          if((data & 2) == 2)
            {
-               precharge.put(2, true);
+               precharge.put(2, "Precharge Welding");
            }
           else
-              precharge.put(2, false);
+              precharge.remove(2);
 
-            if(precharge.containsKey(data & 4))
+            if((data & 4) == 4)
             {
-               precharge.put(4, true);
+               precharge.put(4, "Precharge relay feedback broken");
             }
             else
-                precharge.put( 4, false);
+                precharge.remove( 4);
 
        }
        public  void setPlusState(short data)
        {
-           if(plus.containsKey(data & 8))
+           if((data & 8) == 8)
            {
-               plus.put(8, true);
+               plus.put(8, "Plus Open Load");
            }
            else
-               plus.put( 8, false);
+           plus.remove(8);
 
-           if(plus.containsKey(data & 16))
+           if((data & 16) == 16)
            {
-               plus.put(16, true);
+               plus.put(16, "Plus Welding");
            }
            else
-               plus.put(16, false);
-           if(plus.containsKey(data  & 32))
+              plus.remove(16);
+           if((data  & 32) == 32)
            {
-               plus.put( 32, true);
+               plus.put( 32, "Plus relay feedback broken");
            }
            else
-               plus.put(32, false);
+            plus.remove(32);
        }
        public  void setGroundState(short data)
        {
-           if(ground.containsKey(data & 64))
+           if((data & 64) == 64)
            {
-               ground.put( 64, true);
+               ground.put( 64, "Ground Open Load");
            }
            else
-               ground.put( 64, false);
-
-           if(ground.containsKey(data & 128))
+               ground.remove(64);
+           if((data & 128) == 128)
            {
-               ground.put(128, true);
+               ground.put(128, "Ground Welding");
            }
            else
-               ground.put(128, false);
-           if(ground.containsKey(data  & 256))
+               ground.remove(128);
+           if((data  & 256) == 256)
            {
-               ground.put(256, true);
+               ground.put(256, "Ground relay feedback broken");
            }
            else
-               ground.put(256, false);
+               ground.remove(256);
        }
        public  void setSensorState(short data)
        {
-           if(sensor.containsKey(data & 512))
+           if((data & 512)== 512)
            {
-               sensor.put( 512, true);
+               sensor.put( 512, "External Voltage Sensor Broken");
            }
            else
-               sensor.put(512, false);
-           if(sensor.containsKey(data  & 1024))
+               sensor.remove(512);
+           if((data  & 1024) == 1024)
            {
-               sensor.put(1024, true);
+               sensor.put(1024, "Power Switch Current Sensor Crash");
            }
            else
-               sensor.put(1024, false);
+               sensor.remove(1024);
        }
     }
 }

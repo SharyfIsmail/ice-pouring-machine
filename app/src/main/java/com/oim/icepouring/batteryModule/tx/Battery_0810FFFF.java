@@ -1,4 +1,4 @@
-package com.oim.icepouring.batteryModul.tx;
+package com.oim.icepouring.batteryModule.tx;
 
 import com.oim.icepouring.can.candata.DataFromDevice;
 import com.oim.icepouring.util.Parser;
