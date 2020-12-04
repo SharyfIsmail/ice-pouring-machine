@@ -16,6 +16,38 @@ public class Contactors_0CFEF301_Model implements DataFromDeviceModel {
     private ObservableField<String> groundState;
     private ObservableField<String> sensorState;
 
+    public ObservableField<String> getPrechargeState() {
+        return prechargeState;
+    }
+
+    public void setPrechargeState(ObservableField<String> prechargeState) {
+        this.prechargeState = prechargeState;
+    }
+
+    public ObservableField<String> getPlusState() {
+        return plusState;
+    }
+
+    public void setPlusState(ObservableField<String> plusState) {
+        this.plusState = plusState;
+    }
+
+    public ObservableField<String> getGroundState() {
+        return groundState;
+    }
+
+    public void setGroundState(ObservableField<String> groundState) {
+        this.groundState = groundState;
+    }
+
+    public ObservableField<String> getSensorState() {
+        return sensorState;
+    }
+
+    public void setSensorState(ObservableField<String> sensorState) {
+        this.sensorState = sensorState;
+    }
+
     public Contactors_0CFEF301_Model()
     {
         contactors_0CFEF301 = new Contactors_0CFEF301();

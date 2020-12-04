@@ -1,5 +1,6 @@
 package com.oim.icepouring.thread;
 
+import com.oim.icepouring.batteryModule.model.BatteryDataMonitor;
 import com.oim.icepouring.can.Can;
 import com.oim.icepouring.can.candata.DataFromDeviceModel;
 import com.oim.icepouring.usb.UsbCan;
@@ -13,15 +14,16 @@ import java.util.Objects;
 
 public class ReceiveThread extends Thread {
 
+
     private Map<Integer, DataFromDeviceModel> canPackage ;
     private UsbConnector usbConnector ;
-
+private BatteryDataMonitor batteryDataMonitor;
+    public ReceiveThread(BatteryDataMonitor batteryDataMonitor)
+    {
+        this.batteryDataMonitor = batteryDataMonitor;
+    }
     public Map<Integer, DataFromDeviceModel> getCanPackage() {
         return canPackage;
-    }
-
-    public void setCanPackage(Map<Integer, DataFromDeviceModel> canPackage) {
-        this.canPackage = canPackage;
     }
 
     public UsbConnector getUsbConnector() {
@@ -32,9 +34,10 @@ public class ReceiveThread extends Thread {
         this.usbConnector = usbConnector;
     }
 
+
     @Override
-    public void run()
-    {
+    public void run() {
+
         if(usbConnector.getUsbConnection() != null) {
             byte[] receiveBuffer = new byte[512];
             while (!isInterrupted()) {

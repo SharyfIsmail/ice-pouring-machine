@@ -10,12 +10,53 @@ import com.oim.icepouring.can.candata.DataFromDeviceModel;
 
 public class Battery_0810FFFF_Model implements DataFromDeviceModel
 {
+    private int i = 0;
     private Battery_0810FFFF battery_0810FFFF;
     private ObservableInt current ;
     private ObservableShort soc;
     private ObservableShort maxTemp;
     private ObservableShort minTemp;
     private ObservableFloat totalBatteryVoltage;
+
+    public ObservableInt getCurrent() {
+        return current;
+    }
+
+    public void setCurrent(ObservableInt current) {
+        this.current = current;
+    }
+
+    public ObservableShort getSoc() {
+        return soc;
+    }
+
+    public void setSoc(ObservableShort soc) {
+        this.soc = soc;
+    }
+
+    public ObservableShort getMaxTemp() {
+        return maxTemp;
+    }
+
+    public void setMaxTemp(ObservableShort maxTemp) {
+        this.maxTemp = maxTemp;
+    }
+
+    public ObservableShort getMinTemp() {
+        return minTemp;
+    }
+
+    public void setMinTemp(ObservableShort minTemp) {
+        this.minTemp = minTemp;
+    }
+
+    public ObservableFloat getTotalBatteryVoltage() {
+        return totalBatteryVoltage;
+    }
+
+    public void setTotalBatteryVoltage(ObservableFloat totalBatteryVoltage) {
+        this.totalBatteryVoltage = totalBatteryVoltage;
+    }
 
     public Battery_0810FFFF_Model()
     {

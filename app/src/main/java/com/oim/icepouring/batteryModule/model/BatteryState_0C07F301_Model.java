@@ -9,6 +9,15 @@ import com.oim.icepouring.can.candata.DataFromDeviceModel;
 public class BatteryState_0C07F301_Model implements DataFromDeviceModel {
     private BatteryState_0C07F301 batteryState_0C07F301;
     private ObservableField<String> batteryStatus ;
+
+    public ObservableField<String> getBatteryStatus() {
+        return batteryStatus;
+    }
+
+    public void setBatteryStatus(ObservableField<String> batteryStatus) {
+        this.batteryStatus = batteryStatus;
+    }
+
     public BatteryState_0C07F301_Model()
     {
         batteryState_0C07F301 = new BatteryState_0C07F301();
