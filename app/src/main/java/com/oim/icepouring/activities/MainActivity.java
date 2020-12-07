@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.Observable;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 
@@ -72,8 +73,8 @@ private static int i = 0;
                     @Override
                     public void run() {
 
-
-
+//                        activityMainBinding.textView2.setTextColor((batteryDataMonitor.getBattery_0810FFFF_model().getSoc().get() > 100) ? Color.parseColor("#FF00AA"): Color.parseColor("#FFFAB0"));
+//                        activityMainBinding.textView2.setText(activityMainBinding.getBattery0810FFFFModel().getSoc().get() + " ");
                     }
                 });
 

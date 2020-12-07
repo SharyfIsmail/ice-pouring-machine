@@ -3,8 +3,8 @@ package com.oim.icepouring.batteryModule.tx;
 import com.oim.icepouring.can.candata.DataFromDevice;
 import com.oim.icepouring.util.Parser;
 
+import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 public class Contactors_0CFEF301 implements DataFromDevice {
     private byte prechargeState ;
@@ -65,10 +65,10 @@ public class Contactors_0CFEF301 implements DataFromDevice {
     }
     public static class ContactorError
     {
-        private  Map<Integer, String> precharge = new ConcurrentHashMap<>();
-        private  Map<Integer, String> plus = new ConcurrentHashMap<>();
-        private  Map<Integer, String> ground = new ConcurrentHashMap<>();
-        private  Map<Integer, String> sensor = new ConcurrentHashMap<>();
+        private  Map<Integer, String> precharge = new HashMap<>();
+        private  Map<Integer, String> plus = new HashMap<>();
+        private  Map<Integer, String> ground = new HashMap<>();
+        private  Map<Integer, String> sensor = new HashMap<>();
 
         public Map<Integer, String> getPrecharge() {
             return precharge;

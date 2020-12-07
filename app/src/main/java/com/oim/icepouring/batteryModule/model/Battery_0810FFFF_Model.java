@@ -10,7 +10,6 @@ import com.oim.icepouring.can.candata.DataFromDeviceModel;
 
 public class Battery_0810FFFF_Model implements DataFromDeviceModel
 {
-    private int i = 0;
     private Battery_0810FFFF battery_0810FFFF;
     private ObservableInt current ;
     private ObservableShort soc;
