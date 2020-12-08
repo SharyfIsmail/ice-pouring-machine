@@ -21,11 +21,11 @@
     tools:context="com.oim.icepouring.activities.MainActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="283dp"
-        android:layout_height="399dp"
-        android:layout_marginTop="4dp"
+        android:layout_width="188dp"
+        android:layout_height="158dp"
+        android:layout_marginTop="52dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.39"
+        app:layout_constraintHorizontal_bias="0.413"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -44,12 +44,26 @@
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="268dp"
+            android:layout_marginTop="88dp"
             android:text="TextView"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintHorizontal_bias="0.969"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ProgressBar
+            android:id="@+id/batteySocProgressBar"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:layout_width="52dp"
+            android:layout_height="131dp"
+            android:progress="100"
+            android:progressDrawable="@drawable/batterysocbar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.485"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.296" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
