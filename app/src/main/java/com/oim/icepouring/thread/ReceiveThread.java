@@ -14,7 +14,7 @@ import java.util.Objects;
 
 public class ReceiveThread extends Thread {
 
-
+short i = 0;
     private Map<Integer, DataFromDeviceModel> canPackage ;
     private UsbConnector usbConnector ;
 private BatteryDataMonitor batteryDataMonitor;
@@ -37,24 +37,36 @@ private BatteryDataMonitor batteryDataMonitor;
 
     @Override
     public void run() {
-
-        if(usbConnector.getUsbConnection() != null) {
-            byte[] receiveBuffer = new byte[512];
-            while (!isInterrupted()) {
-                if(usbConnector.getUsbSerialPort().isOpen())
-                {
-                    try {
-                        int len =usbConnector.getUsbSerialPort().read(receiveBuffer, 100);// time doesn't matter
-                        if (len > 0) {
-                            byte[] array = Arrays.copyOf(receiveBuffer, len);
-                            objectMapping(array);
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
+    while(true)
+    {
+        try {
+            Thread.sleep(100);
+            batteryDataMonitor.getBattery_0810FFFF_model().getSoc().set(i++);
+            batteryDataMonitor.getBattery_0810FFFF_model().getTotalBatteryVoltage().set(i++);
+            if(i == 100)
+                i = 0;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
+
+    }
+//        if(usbConnector.getUsbConnection() != null) {
+//            byte[] receiveBuffer = new byte[512];
+//            while (!isInterrupted()) {
+//                if(usbConnector.getUsbSerialPort().isOpen())
+//                {
+//                    try {
+//                        int len =usbConnector.getUsbSerialPort().read(receiveBuffer, 100);// time doesn't matter
+//                        if (len > 0) {
+//                            byte[] array = Arrays.copyOf(receiveBuffer, len);
+//                            objectMapping(array);
+//                        }
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            }
+//        }
     }
     private void objectMapping(byte[] data)
     {

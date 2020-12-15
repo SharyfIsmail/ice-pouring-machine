@@ -2,6 +2,7 @@ package com.oim.icepouring.batteryModule.model;
 
 import com.oim.icepouring.batteryModule.tx.Contactors_0CFEF301;
 import com.oim.icepouring.can.candata.DataFromDeviceModel;
+import com.oim.icepouring.databinding.ActivityMainBinding;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,11 +14,11 @@ public class BatteryDataMonitor
     private Battery_0810FFFF_Model battery_0810FFFF_model;
     private Contactors_0CFEF301_Model contactors_0CFEF301_model;
 
-    public BatteryDataMonitor()
+    public BatteryDataMonitor(ActivityMainBinding activityMainBinding)
     {
         dataModel = new HashMap<>();
         batteryState_0C07F301_model = new BatteryState_0C07F301_Model();
-        battery_0810FFFF_model = new Battery_0810FFFF_Model();
+        battery_0810FFFF_model = new Battery_0810FFFF_Model(activityMainBinding);
         contactors_0CFEF301_model = new Contactors_0CFEF301_Model();
         dataModel.put(0x0810FFFF, battery_0810FFFF_model);
         dataModel.put(0x0C07F301,batteryState_0C07F301_model);

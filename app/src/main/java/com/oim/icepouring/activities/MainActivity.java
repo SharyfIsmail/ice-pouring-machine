@@ -10,6 +10,7 @@ import android.view.View;
 
 import com.oim.icepouring.R;
 import com.oim.icepouring.batteryModule.model.BatteryDataMonitor;
+import com.oim.icepouring.batteryModule.tx.Battery_0810FFFF;
 import com.oim.icepouring.databinding.ActivityMainBinding;
 import com.oim.icepouring.thread.ReceiveThread;
 import com.oim.icepouring.usb.UsbConnector;
@@ -27,7 +28,7 @@ private static int i = 0;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-        batteryDataMonitor = new BatteryDataMonitor();
+        batteryDataMonitor = new BatteryDataMonitor(activityMainBinding);
 
         receiveThread = new ReceiveThread(batteryDataMonitor);
         activityMainBinding.setBattery0810FFFFModel(batteryDataMonitor.getBattery_0810FFFF_model());
@@ -65,22 +66,8 @@ private static int i = 0;
 
             }
         });
-        batteryDataMonitor.getBattery_0810FFFF_model().getSoc().addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
-            @Override
-            public void onPropertyChanged(Observable sender, int propertyId) {
-                runOnUiThread(new Runnable() {
-
-                    @Override
-                    public void run() {
-
-//                        activityMainBinding.textView2.setTextColor((batteryDataMonitor.getBattery_0810FFFF_model().getSoc().get() > 100) ? Color.parseColor("#FF00AA"): Color.parseColor("#FFFAB0"));
-//                        activityMainBinding.textView2.setText(activityMainBinding.getBattery0810FFFFModel().getSoc().get() + " ");
-                    }
-                });
-
-            }
-        });
         receiveThread.start();
+
     }
     @Override
     protected  void onPause()
