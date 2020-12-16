@@ -17,12 +17,6 @@ public class Contactors_0CFEF301_Model implements DataFromDeviceModel {
     private ObservableField<String> plusState;
     private ObservableField<String> groundState;
     private ObservableField<String> sensorState;
-//
-//    private ObservableBoolean prechargeStatus;
-//    private ObservableBoolean plusStatus;
-//    private ObservableBoolean groundStatus;
-//    private ObservableBoolean sensorStatus;
-
 
     public ObservableField<String> getPrechargeState() {
         return prechargeState;
@@ -63,36 +57,6 @@ public class Contactors_0CFEF301_Model implements DataFromDeviceModel {
         plusState = new ObservableField<>();
         groundState = new ObservableField<>();
         sensorState = new ObservableField<>();
-
-//        prechargeStatus = new ObservableBoolean();
-//        prechargeStatus.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
-//            @Override
-//            public void onPropertyChanged(Observable sender, int propertyId) {
-//
-//            }
-//        });
-//        plusStatus = new ObservableBoolean();
-//        plusStatus.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
-//            @Override
-//            public void onPropertyChanged(Observable sender, int propertyId) {
-//
-//            }
-//        });
-//        groundStatus = new ObservableBoolean();
-//        groundStatus.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
-//            @Override
-//            public void onPropertyChanged(Observable sender, int propertyId) {
-//
-//            }
-//        });
-//        sensorStatus = new ObservableBoolean();
-//        sensorStatus.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
-//            @Override
-//            public void onPropertyChanged(Observable sender, int propertyId) {
-//
-//            }
-//        });
-
     }
 
     @Override
@@ -101,12 +65,6 @@ public class Contactors_0CFEF301_Model implements DataFromDeviceModel {
         plusState.set(getErrorName(contactors_0CFEF301.getContactorError().getPlus()));
         groundState.set(getErrorName(contactors_0CFEF301.getContactorError().getGround()));
         sensorState.set(getErrorName(contactors_0CFEF301.getContactorError().getSensor()));
-
-//        plusStatus.set(!contactors_0CFEF301.getContactorError().getPlus().isEmpty());
-//        groundStatus.set(!contactors_0CFEF301.getContactorError().getGround().isEmpty());
-//        prechargeStatus.set(!contactors_0CFEF301.getContactorError().getPrecharge().isEmpty());
-//        sensorStatus.set(!contactors_0CFEF301.getContactorError().getSensor().isEmpty());
-
     }
 
     @Override

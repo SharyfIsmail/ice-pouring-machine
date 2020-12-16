@@ -4,14 +4,16 @@ import com.oim.icepouring.can.candata.DataFromDevice;
 import com.oim.icepouring.util.Parser;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Contactors_0CFEF301 implements DataFromDevice {
     private byte prechargeState ;
     private byte plusState ;
     private byte groundState ;
     private short contactorState;
-    private ContactorError contactorError = new ContactorError();
+    private BatteryError batteryError = new BatteryError();
 
     public short getContactorState() {
         return contactorState;
@@ -45,7 +47,7 @@ public class Contactors_0CFEF301 implements DataFromDevice {
         this.groundState = groundState;
     }
 
-    public ContactorError getContactorError (){return contactorError ; }
+    public BatteryError getContactorError (){return batteryError ; }
 
     @Override
     public void parseDataFromCan(byte[] data) {
@@ -57,14 +59,17 @@ public class Contactors_0CFEF301 implements DataFromDevice {
             byte[] partArray = new byte[2];
             System.arraycopy(data, 4, partArray, 0, partArray.length);
             contactorState = (short) Parser.LittleIndianParser.uint_16ToInt(partArray);
-            contactorError.setGroundState(contactorState);
-            contactorError.setPlusState(contactorState);
-            contactorError.setPrechargeState(contactorState);
-            contactorError.setSensorState(contactorState);
+            batteryError.setGroundState(contactorState);
+            batteryError.setPlusState(contactorState);
+            batteryError.setPrechargeState(contactorState);
+            batteryError.setSensorState(contactorState);
         }
     }
-    public static class ContactorError
+    public static class BatteryError
     {
+        private List<Integer> errors = new CopyOnWriteArrayList<>();
+
+
         private  Map<Integer, String> precharge = new HashMap<>();
         private  Map<Integer, String> plus = new HashMap<>();
         private  Map<Integer, String> ground = new HashMap<>();
@@ -84,6 +89,23 @@ public class Contactors_0CFEF301 implements DataFromDevice {
 
         public Map<Integer, String> getSensor() {
             return sensor;
+        }
+
+        public void setErrorCodes(short data)
+        {
+
+            if((data & 1) == 1)
+            {
+                errors.add(1);
+            }
+            else
+                errors.remove(new Integer(1));
+            if((data & 2) == 2)
+            {
+                errors.add(2);
+            }
+            else
+                errors.remove(new Integer(2));
         }
 
         public  void setPrechargeState(short data)

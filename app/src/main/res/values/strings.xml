@@ -2,5 +2,13 @@
     <string name="app_name">IcePouring</string>
     <string name="batteryErrorImage">errorImage:</string>
     <string name="unchargingArrowImage">unchargingArrow:</string>
+    <string name="chargingArrowImage">chargingArrow:</string>
+    <string name="batteryAllertUnactiveImage">batteryAllertUnactive:</string>
+    <string name="batteryAllertActiveImage">batteryAllertActive:</string>
+    <string name="batteryAllertChargeUnactiveImage">batteryAllertChargeUnactive:</string>
+    <string name="batteryAllertChargeActiveImage">batteryAllertChargeActive:</string>
+    <string name="batteryAllertChargeAlertImage">batteryAllertChargeAlert:</string>
+    <string name="batteryAllertChargeErrorImage">batteryAllertChargeError:</string>
+
 
 </resources>

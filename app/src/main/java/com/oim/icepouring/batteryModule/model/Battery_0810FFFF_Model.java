@@ -111,6 +111,10 @@ public class Battery_0810FFFF_Model implements DataFromDeviceModel {
                 activityMainBinding.uncharging.setColorFilter(socValue >= 40 ?
                         Color.parseColor("#00CC00") : socValue < 20 ?
                         Color.parseColor("#FF0000") : Color.parseColor("#FF6600"));
+                activityMainBinding.charging.setColorFilter(socValue >= 40 ?
+                        Color.parseColor("#00CC00") : socValue < 20 ?
+                        Color.parseColor("#FF0000") : Color.parseColor("#FF6600"));
+
                 activityMainBinding.batterySocError.setVisibility(socValue == 255 ? View.VISIBLE : View.GONE);
                 activityMainBinding.batteySocProgressBar.setProgress(socValue != 255 ? socValue : 0);
 

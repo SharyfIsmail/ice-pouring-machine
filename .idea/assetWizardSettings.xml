@@ -23,7 +23,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material/icons/materialicons/arrow_forward/baseline_arrow_forward_24.xml" />
+                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material/icons/materialicons/offline_bolt/baseline_offline_bolt_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -33,8 +33,8 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="color" value="e6f0d5" />
-                            <entry key="outputName" value="ic_baseline_arrow_forward_24" />
+                            <entry key="color" value="f0ec30" />
+                            <entry key="outputName" value="ic_baseline_offline_bolt_24" />
                             <entry key="sourceFile" value="D:\My projects\IcePouring" />
                           </map>
                         </option>

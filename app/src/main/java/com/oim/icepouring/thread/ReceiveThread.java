@@ -15,6 +15,7 @@ import java.util.Objects;
 public class ReceiveThread extends Thread {
 
 short i = 0;
+boolean ff = true;
     private Map<Integer, DataFromDeviceModel> canPackage ;
     private UsbConnector usbConnector ;
 private BatteryDataMonitor batteryDataMonitor;
@@ -40,9 +41,11 @@ private BatteryDataMonitor batteryDataMonitor;
     while(true)
     {
         try {
-            Thread.sleep(100);
+            Thread.sleep(10);
             batteryDataMonitor.getBattery_0810FFFF_model().getSoc().set(i++);
             batteryDataMonitor.getBattery_0810FFFF_model().getTotalBatteryVoltage().set(i++);
+            ff = !ff;
+            batteryDataMonitor.getBatteryState_0C07F301_model().getBatteryStatus().set(ff? "Battery Charging" : " ");
             if(i == 100)
                 i = 0;
         } catch (InterruptedException e) {
