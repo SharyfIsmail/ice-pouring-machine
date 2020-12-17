@@ -1,21 +1,28 @@
-package com.oim.icepouring.batteryModule.model;
+package com.oim.icepouring.module.batteryModule.model;
 
-import androidx.databinding.Observable;
 import androidx.databinding.ObservableBoolean;
-import androidx.databinding.ObservableField;
+import androidx.databinding.ObservableFloat;
 
-import com.oim.icepouring.batteryModule.tx.Contactors_0CFEF301;
+import com.oim.icepouring.module.batteryModule.tx.Contactors_0CFEF301;
 import com.oim.icepouring.can.candata.DataFromDevice;
 import com.oim.icepouring.can.candata.DataFromDeviceModel;
 
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Contactors_0CFEF301_Model implements DataFromDeviceModel {
 
     private Contactors_0CFEF301 contactors_0CFEF301;
+    private ObservableBoolean isErrorPresented ;
     private List<String> errors;
+
+    public ObservableBoolean getIsErrorPresented() {
+        return isErrorPresented;
+    }
+
+    public void setIsErrorPresented(ObservableBoolean isErrorPresented) {
+        this.isErrorPresented = isErrorPresented;
+    }
 
     public List<String> getErrors() {
         return errors;
@@ -29,7 +36,7 @@ public class Contactors_0CFEF301_Model implements DataFromDeviceModel {
     {
         contactors_0CFEF301 = new Contactors_0CFEF301();
         errors = new CopyOnWriteArrayList<>();
-
+        isErrorPresented = new ObservableBoolean(false);
     }
 
     @Override
@@ -38,6 +45,12 @@ public class Contactors_0CFEF301_Model implements DataFromDeviceModel {
       setPlusState(contactors_0CFEF301.getContactorState());
       setPrechargeState(contactors_0CFEF301.getContactorState());
       setSensorState(contactors_0CFEF301.getContactorState());
+      isErrorPresented.set(checkErrorExistence(errors));
+    }
+
+    private boolean checkErrorExistence(List list)
+    {
+        return list.isEmpty();
     }
 
     @Override

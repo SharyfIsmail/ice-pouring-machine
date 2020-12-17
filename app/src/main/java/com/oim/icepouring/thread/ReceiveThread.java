@@ -1,14 +1,12 @@
 package com.oim.icepouring.thread;
 
-import com.oim.icepouring.batteryModule.model.BatteryDataMonitor;
+import com.oim.icepouring.module.batteryModule.BatteryDataMonitor;
 import com.oim.icepouring.can.Can;
 import com.oim.icepouring.can.candata.DataFromDeviceModel;
 import com.oim.icepouring.usb.UsbCan;
 import com.oim.icepouring.usb.UsbCanCdr;
 import com.oim.icepouring.usb.UsbConnector;
 
-import java.io.IOException;
-import java.util.Arrays;
 import java.util.Map;
 import java.util.Objects;
 

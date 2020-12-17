@@ -5,13 +5,13 @@
     <data>
     <variable
         name="battery_0810FFFF_Model"
-        type="com.oim.icepouring.batteryModule.model.Battery_0810FFFF_Model" />
+        type="com.oim.icepouring.module.batteryModule.model.Battery_0810FFFF_Model" />
         <variable
             name="batteryState_0C07F301_Model"
-            type="com.oim.icepouring.batteryModule.model.BatteryState_0C07F301_Model" />
+            type="com.oim.icepouring.module.batteryModule.model.BatteryState_0C07F301_Model" />
         <variable
             name="contactors_0CFEF301_Model"
-            type="com.oim.icepouring.batteryModule.model.Contactors_0CFEF301_Model" />
+            type="com.oim.icepouring.module.batteryModule.model.Contactors_0CFEF301_Model" />
     </data>
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
@@ -57,7 +57,8 @@
             android:id="@+id/batterySocError"
             android:layout_width="88dp"
             android:layout_height="78dp"
-            android:contentDescription="@string/batteryErrorImage"
+            android:contentDescription="@string/batterySocErrorImage"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -67,8 +68,8 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="80dp"
-        android:layout_height="42dp"
+        android:layout_width="102dp"
+        android:layout_height="109dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/constraintLayout"
         app:layout_constraintHorizontal_bias="1.0"
@@ -76,14 +77,28 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.425">
 
+        <TextView
+            android:id="@+id/batteryCurrent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text='@{String.valueOf(battery_0810FFFF_Model.current) + "A"}'
+            android:textColor="#F4F0F0"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.392"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.188" />
+
         <ImageView
             android:id="@+id/uncharging"
-            android:layout_width="70dp"
-            android:layout_height="17dp"
+            android:layout_width="79dp"
+            android:layout_height="30dp"
             android:contentDescription="@string/unchargingArrowImage"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.518"
@@ -91,12 +106,12 @@
 
         <ImageView
             android:id="@+id/charging"
-            android:layout_width="70dp"
-            android:layout_height="17dp"
+            android:layout_width="79dp"
+            android:layout_height="30dp"
             android:contentDescription="@string/chargingArrowImage"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/uncharging"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintHorizontal_bias="0.304"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.518"
@@ -193,10 +208,10 @@
             app:srcCompat="@drawable/ic_baseline_battery_alert_unactive_24" />
 
         <ImageView
-            android:id="@+id/batteryAlertActive"
+            android:id="@+id/batteryErrorActive"
             android:layout_width="75dp"
             android:layout_height="50dp"
-            android:contentDescription="@string/batteryAllertActiveImage"
+            android:contentDescription="@string/batteryErrorActiveImage"
             android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="@+id/batteryAlertUnactive"
             app:layout_constraintStart_toStartOf="parent"
@@ -204,10 +219,10 @@
             app:srcCompat="@drawable/ic_baseline_battery_alert_active_24" />
 
         <ImageView
-            android:id="@+id/stationUnactive"
+            android:id="@+id/stationAlertUnactive"
             android:layout_width="70dp"
             android:layout_height="45dp"
-            android:contentDescription="@string/batteryAllertChargeUnactiveImage"
+            android:contentDescription="@string/stationAlertUnactiveImage"
             android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
@@ -216,10 +231,10 @@
             app:srcCompat="@drawable/ic_station_charge_unactive_24" />
 
         <ImageView
-            android:id="@+id/stationChargeTimeAlert"
+            android:id="@+id/stationAlertActive"
             android:layout_width="70dp"
             android:layout_height="45dp"
-            android:contentDescription="@string/batteryAllertChargeAlertImage"
+            android:contentDescription="@string/stationAlertActiveImage"
             android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
@@ -228,10 +243,10 @@
             app:srcCompat="@drawable/ic_station_chargetime_alert_24" />
 
         <ImageView
-            android:id="@+id/stationCharing"
+            android:id="@+id/stationWorking"
             android:layout_width="70dp"
             android:layout_height="45dp"
-            android:contentDescription="@string/batteryAllertChargeImage"
+            android:contentDescription="@string/stationWorkingImage"
             android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
@@ -240,10 +255,10 @@
             app:srcCompat="@drawable/ic_station_charging_24" />
 
         <ImageView
-            android:id="@+id/stationChargeImmediatly"
+            android:id="@+id/stationErrorActive"
             android:layout_width="70dp"
             android:layout_height="45dp"
-            android:contentDescription="@string/batteryAllertChargeErrorImage"
+            android:contentDescription="@string/stationErrorActiveImage"
             android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
@@ -252,15 +267,39 @@
             app:srcCompat="@drawable/ic_station_chargetime_error_24" />
 
         <ImageView
-            android:id="@+id/batteryAlertCharge"
+            android:id="@+id/batteryAlertActive"
             android:layout_width="75dp"
             android:layout_height="50dp"
-            android:contentDescription="@string/batteryAllertChargeImage"
+            android:contentDescription="@string/batteryAlertActiveImage"
             android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="@+id/batteryAlertUnactive"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/batteryAlertUnactive"
             app:srcCompat="@drawable/ic_baseline_battery_alert_charge_24" />
+
+        <ImageView
+            android:id="@+id/engineCheckUnactive"
+            android:layout_width="72dp"
+            android:layout_height="46dp"
+            android:contentDescription="@string/engineCheckUnactiveImage"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.333"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/divider16"
+            app:srcCompat="@drawable/engine_check_unactive" />
+
+        <ImageView
+            android:id="@+id/engineCheckActive"
+            android:layout_width="72dp"
+            android:layout_height="46dp"
+            android:contentDescription="@string/engineCheckActiveImage"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.333"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/divider16"
+            app:srcCompat="@drawable/engine_check_active" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
