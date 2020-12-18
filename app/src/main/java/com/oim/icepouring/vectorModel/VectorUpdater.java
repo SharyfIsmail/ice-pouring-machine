@@ -1,4 +1,4 @@
-package com.oim.icepouring.module.batteryModule.vectorBatteryModel;
+package com.oim.icepouring.vectorModel;
 
 import android.widget.ImageView;
 

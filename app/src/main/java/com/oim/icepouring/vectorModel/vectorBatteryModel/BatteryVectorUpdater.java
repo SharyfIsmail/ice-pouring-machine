@@ -1,4 +1,4 @@
-package com.oim.icepouring.module.batteryModule.vectorBatteryModel;
+package com.oim.icepouring.vectorModel.vectorBatteryModel;
 
 import android.graphics.Color;
 import android.os.Handler;
@@ -10,7 +10,7 @@ import androidx.databinding.Observable;
 
 import com.oim.icepouring.databinding.ActivityMainBinding;
 import com.oim.icepouring.module.batteryModule.BatteryDataMonitor;
-import com.oim.icepouring.module.batteryModule.vectorBatteryModel.VectorUpdater;
+import com.oim.icepouring.vectorModel.VectorUpdater;
 
 import java.util.Objects;
 

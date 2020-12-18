@@ -9,7 +9,7 @@ import android.view.View;
 import com.oim.icepouring.R;
 import com.oim.icepouring.module.batteryModule.BatteryDataMonitor;
 import com.oim.icepouring.databinding.ActivityMainBinding;
-import com.oim.icepouring.module.batteryModule.vectorBatteryModel.BatteryVectorUpdater;
+import com.oim.icepouring.vectorModel.vectorBatteryModel.BatteryVectorUpdater;
 import com.oim.icepouring.thread.ReceiveThread;
 import com.oim.icepouring.usb.UsbConnector;
 
