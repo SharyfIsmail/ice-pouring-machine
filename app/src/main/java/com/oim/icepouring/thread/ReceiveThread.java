@@ -39,7 +39,7 @@ private BatteryDataMonitor batteryDataMonitor;
     while(true)
     {
         try {
-            Thread.sleep(10);
+            Thread.sleep(1000);
             batteryDataMonitor.getBattery_0810FFFF_model().getSoc().set(i++);
             batteryDataMonitor.getBattery_0810FFFF_model().getTotalBatteryVoltage().set(i++);
             ff = !ff;

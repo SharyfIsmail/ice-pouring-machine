@@ -99,8 +99,8 @@ public class BatteryVectorUpdater implements VectorUpdater {
                   Color.parseColor("#00CC00") : socValue < 20 ?
                   Color.parseColor("#FF0000") : Color.parseColor("#FF6600"));
 
-          setVisible(isBatteryDamaged = (socValue == 255), activityMainBinding.batterySocError, activityMainBinding.batteryErrorActive);
-          setVisible(isBatterySocRed = socValue <= 10, activityMainBinding.batteryErrorActive );
+          setVisible(isBatteryDamaged = (socValue == 255) , activityMainBinding.batterySocError, activityMainBinding.batteryErrorActive);
+          setVisible((isBatterySocRed = socValue <= 10) , activityMainBinding.batteryErrorActive );
           setVisible(!isBatterySocRed && !isBatteryDamaged && !isContactorServiceable && (socValue < 40 && socValue > 10), activityMainBinding.batteryAlertActive);
           activityMainBinding.batteySocProgressBar.setProgress(socValue != 255 ? socValue : 0);
 

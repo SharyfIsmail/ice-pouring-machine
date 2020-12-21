@@ -2,18 +2,22 @@ package com.oim.icepouring.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 import android.view.View;
 
 import com.oim.icepouring.R;
+import com.oim.icepouring.errorModel.ErrorViewerModel;
 import com.oim.icepouring.module.batteryModule.BatteryDataMonitor;
 import com.oim.icepouring.databinding.ActivityMainBinding;
+import com.oim.icepouring.thread.ErrorViewer;
 import com.oim.icepouring.vectorModel.vectorBatteryModel.BatteryVectorUpdater;
 import com.oim.icepouring.thread.ReceiveThread;
 import com.oim.icepouring.usb.UsbConnector;
 
 import java.io.IOException;
+import java.util.Timer;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,8 +25,10 @@ public class MainActivity extends AppCompatActivity {
     private BatteryDataMonitor batteryDataMonitor;
     private ReceiveThread receiveThread;
     private ActivityMainBinding activityMainBinding;
-    BatteryVectorUpdater batteryVectorUpdater;
-    private static int i = 0;
+    private BatteryVectorUpdater batteryVectorUpdater;
+    private ErrorViewer errorViewer;
+    private ErrorViewerModel errorViewerModel;
+    private Timer timer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,7 +45,12 @@ public class MainActivity extends AppCompatActivity {
         activityMainBinding.setContactors0CFEF301Model(batteryDataMonitor.getContactors_0CFEF301_model());
 
         batteryVectorUpdater = new BatteryVectorUpdater(batteryDataMonitor, activityMainBinding);
+        errorViewerModel = new ErrorViewerModel(batteryDataMonitor);
+        errorViewer = new ErrorViewer(errorViewerModel);
+        activityMainBinding.setErrorViewerModel(errorViewerModel);
+        timer = new Timer();
 
+        getSupportFragmentManager().beginTransaction().add(activityMainBinding.flFragment.getId(), new ChargeFragment()).commit();
         usbConnector = new UsbConnector(this);
         try {
             usbConnector.connect();
@@ -53,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         receiveThread.setDaemon(true);
         receiveThread.setUnitIdMapper(batteryDataMonitor.getDataModel());
+        timer.schedule(errorViewer, 1000, 1500);
         receiveThread.start();
     }
     @Override

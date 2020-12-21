@@ -18,6 +18,13 @@
 
     <string name="batterySocErrorImage">batterySocError:</string>
 
+    <string name="ErrorText">Error:</string>
+    <string name="TestText">Test:</string>
+    <string name="driveText">Drive:</string>
+    <string name="errorValue">Drive:</string>
 
+    <string name="chargeVectorImage">chargeVector:</string>
+
+    chargeVectorImage
 
 </resources>

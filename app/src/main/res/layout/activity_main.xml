@@ -12,6 +12,9 @@
         <variable
             name="contactors_0CFEF301_Model"
             type="com.oim.icepouring.module.batteryModule.model.Contactors_0CFEF301_Model" />
+        <variable
+            name="error_viewer_model"
+            type="com.oim.icepouring.errorModel.ErrorViewerModel" />
     </data>
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
@@ -22,14 +25,14 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
-        android:layout_width="146dp"
-        android:layout_height="133dp"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.466"
+        app:layout_constraintHorizontal_bias="0.522"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.402">
+        app:layout_constraintVertical_bias="0.498">
 
         <TextView
             android:id="@+id/batteryVoltage"
@@ -68,14 +71,14 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="102dp"
-        android:layout_height="109dp"
+        android:layout_width="83dp"
+        android:layout_height="121dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/constraintLayout"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.425">
+        app:layout_constraintVertical_bias="0.503">
 
         <TextView
             android:id="@+id/batteryCurrent"
@@ -86,10 +89,10 @@
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.392"
+            app:layout_constraintHorizontal_bias="0.493"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.188" />
+            app:layout_constraintVertical_bias="0.164" />
 
         <ImageView
             android:id="@+id/uncharging"
@@ -111,14 +114,15 @@
             android:contentDescription="@string/chargingArrowImage"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/uncharging"
-            app:layout_constraintHorizontal_bias="0.304"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.518"
+            app:layout_constraintVertical_bias="0.516"
             app:srcCompat="@drawable/ic_baseline_arrow_forward_24" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout2"
         android:layout_width="75dp"
         android:layout_height="250dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -273,6 +277,7 @@
             android:contentDescription="@string/batteryAlertActiveImage"
             android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="@+id/batteryAlertUnactive"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/batteryAlertUnactive"
             app:srcCompat="@drawable/ic_baseline_battery_alert_charge_24" />
@@ -300,7 +305,162 @@
             app:layout_constraintTop_toBottomOf="@+id/divider16"
             app:srcCompat="@drawable/engine_check_active" />
 
+        <View
+            android:id="@+id/divider7"
+            android:layout_width="75dp"
+            android:layout_height="2dp"
+            android:layout_marginBottom="48dp"
+            android:background="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="@+id/batteryAlertUnactive"
+            app:layout_constraintStart_toStartOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="285dp"
+        android:layout_height="63dp"
+        android:layout_marginStart="3dp"
+        android:layout_marginEnd="364dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/constraintLayout2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <TextView
+            android:id="@+id/driveText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/driveText"
+            android:textColor="#F4F0F0"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/divider5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.019"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.952" />
+
+        <TextView
+            android:id="@+id/TestText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/TestText"
+            android:textColor="#F4F0F0"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/divider5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.019"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.571" />
+
+        <View
+            android:id="@+id/divider3"
+            android:layout_width="150dp"
+            android:layout_height="2dp"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="56dp"
+            android:background="@android:color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.014"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/divider2"
+            android:layout_width="150dp"
+            android:layout_height="2dp"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="40dp"
+            android:background="@android:color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.014"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="150dp"
+            android:layout_height="2dp"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="20dp"
+            android:background="@android:color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.028"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/divider5"
+            android:layout_width="2dp"
+            android:layout_height="58dp"
+
+            android:background="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.533"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <View
+            android:id="@+id/divider6"
+            android:layout_width="2dp"
+            android:layout_height="58dp"
+
+            android:background="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.01"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/errorText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ErrorText"
+            android:textColor="#F4F0F0"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/divider5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.019"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.095" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="56dp"
+            android:text="@{error_viewer_model.errorField}"
+            android:textColor="#F4F0F0"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/divider3"
+            app:layout_constraintEnd_toEndOf="@+id/divider5"
+            app:layout_constraintHorizontal_bias="0.03"
+            app:layout_constraintStart_toEndOf="@+id/errorText"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.095" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <FrameLayout
+        android:id="@+id/flFragment"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.142"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.501">
+
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
