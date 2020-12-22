@@ -10,7 +10,6 @@ import java.util.List;
 public class ErrorViewerModel implements ErrorService
 {
     private int indexColumn;
-    private int indexColumnPrevious;
     private int indexLine;
     private int errorIndex;
 
@@ -64,15 +63,14 @@ public class ErrorViewerModel implements ErrorService
         }
         else {
             int errorCount = 0;
-            for (int i = 0; i < list.size(); i++) {
-                errorCount += list.get(i).size();
-            }
-            errorIndex = errorIndex >= errorCount ? errorIndex = 1 : errorIndex++;
-            errorField.set(errorIndex + "/" + errorCount + ":" + list.get(indexColumn == list.size() ?
-                    indexColumn = 0 : indexLine < list.get(indexColumn).size() ?
-                    indexColumn : indexColumn++).get(indexLine < list.get(indexColumnPrevious == list.size() ?
-                    indexColumnPrevious = indexColumn : indexColumnPrevious).size() ?
-                    indexLine++ : (indexLine = 0)));
+            for (int i = 0; i < list.size(); i++)
+                 errorCount += list.get(i).size();
+
+            errorIndex = errorIndex >= errorCount ? errorIndex = 1 : ++errorIndex;
+            errorField.set(errorIndex + "/" + errorCount + ":" + list.get(indexColumn).get(indexLine));
+
+            indexLine = (indexLine == list.get(indexColumn).size() - 1)? indexLine = 0 : ++indexLine ;
+            indexColumn = (indexLine   == 0 ) ? indexColumn == list.size()- 1  ? indexColumn = 0 :++indexColumn  : indexColumn;
         }
     }
 

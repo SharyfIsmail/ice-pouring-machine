@@ -7,7 +7,11 @@ import android.view.View;
 import android.widget.ImageView;
 
 import androidx.databinding.Observable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
+import com.oim.icepouring.activities.ChargeFragment;
+import com.oim.icepouring.activities.SpeedPanelFragment;
 import com.oim.icepouring.databinding.ActivityMainBinding;
 import com.oim.icepouring.module.batteryModule.BatteryDataMonitor;
 import com.oim.icepouring.vectorModel.VectorUpdater;
@@ -17,14 +21,27 @@ import java.util.Objects;
 public class BatteryVectorUpdater implements VectorUpdater {
   private BatteryDataMonitor batteryDataMonitor;
   private ActivityMainBinding activityMainBinding;
+  private FragmentManager fragmentManager;
   private  volatile  boolean isBatterySocRed;
   private  volatile boolean isBatteryDamaged;
   private  volatile boolean isContactorServiceable;
 
-  public BatteryVectorUpdater( BatteryDataMonitor batteryDataMonitor, ActivityMainBinding activityMainBinding)
+  private SpeedPanelFragment speedPanelFragment;
+  private ChargeFragment chargeFragment;
+  private int i = 0;
+  public void  setSpeedPanelFragment(SpeedPanelFragment fragment)
+  {
+    speedPanelFragment = fragment;
+  }
+  public void  setChargeFragment(ChargeFragment fragment)
+  {
+    chargeFragment = fragment;
+  }
+  public BatteryVectorUpdater( BatteryDataMonitor batteryDataMonitor, ActivityMainBinding activityMainBinding, FragmentManager fragmentManager)
   {
     this.batteryDataMonitor = batteryDataMonitor;
     this.activityMainBinding = activityMainBinding;
+    this.fragmentManager = fragmentManager;
     setOnAction(batteryDataMonitor.getBattery_0810FFFF_model().getSoc(), new PropertyChangedCallbackSoc());
     setOnAction(batteryDataMonitor.getBatteryState_0C07F301_model().getBatteryStatus(), new PropertyChangedCallbackBatteryState());
     setOnAction(batteryDataMonitor.getContactors_0CFEF301_model().getIsErrorPresented(), new PropertyChangedCallbackContactorState());
@@ -55,20 +72,32 @@ public class BatteryVectorUpdater implements VectorUpdater {
             case "Battery Charging":
               setVisible(false, activityMainBinding.uncharging);
               setVisible(true, activityMainBinding.charging);
-              setVisible(isBatteryDamaged = false, activityMainBinding.batteryErrorActive);
+              isBatteryDamaged = false;
+              setVisible(isBatteryDamaged  || isBatterySocRed || isContactorServiceable, activityMainBinding.batteryErrorActive);
+              fragmentManager.beginTransaction().replace(activityMainBinding.flFragment.getId(), chargeFragment).commit();
+
               break;
+
             case "Battery On With Error" :
-              setVisible(true, activityMainBinding.uncharging);
-              setVisible(false, activityMainBinding.charging);
-              setVisible(isBatteryDamaged = true, activityMainBinding.batteryErrorActive);
             case "Battery Off With Error" :
               setVisible(true, activityMainBinding.uncharging);
               setVisible(false, activityMainBinding.charging);
-              setVisible(isBatteryDamaged = true, activityMainBinding.batteryErrorActive);
+              isBatteryDamaged = true;
+              setVisible(isBatteryDamaged  || isBatterySocRed || isContactorServiceable, activityMainBinding.batteryErrorActive);
+
+              fragmentManager.beginTransaction().replace(activityMainBinding.flFragment.getId(), speedPanelFragment).commit();
+              break;
+
             default:
               setVisible(true, activityMainBinding.uncharging);
               setVisible(false, activityMainBinding.charging);
-              setVisible(isBatteryDamaged = false, activityMainBinding.batteryErrorActive);
+
+              isBatteryDamaged = false;
+              setVisible(isBatteryDamaged  || isBatterySocRed || isContactorServiceable, activityMainBinding.batteryErrorActive);
+
+              fragmentManager.beginTransaction().replace(activityMainBinding.flFragment.getId(), speedPanelFragment).commit();
+
+
           }
         }
       });
@@ -98,10 +127,11 @@ public class BatteryVectorUpdater implements VectorUpdater {
           activityMainBinding.charging.setColorFilter(socValue >= 40 ?
                   Color.parseColor("#00CC00") : socValue < 20 ?
                   Color.parseColor("#FF0000") : Color.parseColor("#FF6600"));
-
-          setVisible(isBatteryDamaged = (socValue == 255) , activityMainBinding.batterySocError, activityMainBinding.batteryErrorActive);
-          setVisible((isBatterySocRed = socValue <= 10) , activityMainBinding.batteryErrorActive );
+          setVisible(isBatteryDamaged = (socValue == 255) , activityMainBinding.batterySocError);
+          setVisible(isBatteryDamaged || isBatterySocRed || isContactorServiceable,  activityMainBinding.batteryErrorActive);
+          setVisible((isBatterySocRed = socValue <= 10) || isBatteryDamaged || isBatterySocRed , activityMainBinding.batteryErrorActive );
           setVisible(!isBatterySocRed && !isBatteryDamaged && !isContactorServiceable && (socValue < 40 && socValue > 10), activityMainBinding.batteryAlertActive);
+
           activityMainBinding.batteySocProgressBar.setProgress(socValue != 255 ? socValue : 0);
 
         }
@@ -122,7 +152,7 @@ public class BatteryVectorUpdater implements VectorUpdater {
         @Override
         public void run() {
           boolean  isTrue = activityMainBinding.getContactors0CFEF301Model().getIsErrorPresented().get();
-          setVisible(isContactorServiceable = isTrue, activityMainBinding.batteryErrorActive);
+          setVisible(isContactorServiceable = isTrue || isBatterySocRed || isBatteryDamaged, activityMainBinding.batteryErrorActive);
         }
       });
     }

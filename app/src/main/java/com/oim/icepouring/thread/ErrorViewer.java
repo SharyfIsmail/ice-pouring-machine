@@ -1,13 +1,14 @@
 package com.oim.icepouring.thread;
 
+import com.oim.icepouring.errorModel.ErrorService;
 import com.oim.icepouring.errorModel.ErrorViewerModel;
 
 import java.util.TimerTask;
 
 public class ErrorViewer extends TimerTask  {
-    private ErrorViewerModel errorViewerModel;
+    private ErrorService errorViewerModel;
 
-    public ErrorViewer( ErrorViewerModel errorViewerModel)
+    public ErrorViewer( ErrorService errorViewerModel)
     {
         this.errorViewerModel = errorViewerModel;
     }
@@ -16,5 +17,6 @@ public class ErrorViewer extends TimerTask  {
     {
         errorViewerModel.updateErrorList();
         errorViewerModel.updateField();
+
     }
 }

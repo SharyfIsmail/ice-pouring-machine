@@ -41,9 +41,9 @@ private BatteryDataMonitor batteryDataMonitor;
         try {
             Thread.sleep(1000);
             batteryDataMonitor.getBattery_0810FFFF_model().getSoc().set(i++);
-            batteryDataMonitor.getBattery_0810FFFF_model().getTotalBatteryVoltage().set(i++);
+          //  batteryDataMonitor.getBattery_0810FFFF_model().getTotalBatteryVoltage().set(i++);
             ff = !ff;
-            batteryDataMonitor.getBatteryState_0C07F301_model().getBatteryStatus().set(ff? "Battery Charging" : " ");
+            batteryDataMonitor.getBatteryState_0C07F301_model().getBatteryStatus().set(ff? "Battery Charging" : "Battery Off");
             if(i == 100)
                 i = 0;
         } catch (InterruptedException e) {

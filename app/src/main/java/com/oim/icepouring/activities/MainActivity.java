@@ -5,6 +5,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 
 import com.oim.icepouring.R;
@@ -28,7 +29,11 @@ public class MainActivity extends AppCompatActivity {
     private BatteryVectorUpdater batteryVectorUpdater;
     private ErrorViewer errorViewer;
     private ErrorViewerModel errorViewerModel;
+    private SpeedPanelFragment speedPanelFragment;
+    private  ChargeFragment chargeFragment;
+
     private Timer timer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,19 +43,26 @@ public class MainActivity extends AppCompatActivity {
         decorView.setSystemUiVisibility(uiOptions);
 
         activityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        speedPanelFragment = new SpeedPanelFragment();
+        chargeFragment = new ChargeFragment();
         batteryDataMonitor = new BatteryDataMonitor();
         receiveThread = new ReceiveThread(batteryDataMonitor);
         activityMainBinding.setBattery0810FFFFModel(batteryDataMonitor.getBattery_0810FFFF_model());
         activityMainBinding.setBatteryState0C07F301Model(batteryDataMonitor.getBatteryState_0C07F301_model());
         activityMainBinding.setContactors0CFEF301Model(batteryDataMonitor.getContactors_0CFEF301_model());
 
-        batteryVectorUpdater = new BatteryVectorUpdater(batteryDataMonitor, activityMainBinding);
+        batteryVectorUpdater = new BatteryVectorUpdater(batteryDataMonitor, activityMainBinding,  getSupportFragmentManager());
+        batteryVectorUpdater.setChargeFragment(chargeFragment);
+        batteryVectorUpdater.setSpeedPanelFragment(speedPanelFragment);
+        getSupportFragmentManager().beginTransaction().add(activityMainBinding.flFragment.getId(), speedPanelFragment).commit();
+
+
         errorViewerModel = new ErrorViewerModel(batteryDataMonitor);
         errorViewer = new ErrorViewer(errorViewerModel);
         activityMainBinding.setErrorViewerModel(errorViewerModel);
         timer = new Timer();
 
-        getSupportFragmentManager().beginTransaction().add(activityMainBinding.flFragment.getId(), new ChargeFragment()).commit();
+
         usbConnector = new UsbConnector(this);
         try {
             usbConnector.connect();
