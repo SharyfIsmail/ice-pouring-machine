@@ -68,13 +68,8 @@ public class MainActivity extends AppCompatActivity {
 
         getSupportFragmentManager().beginTransaction().add(activityMainBinding.flFragment.getId(), speedPanelFragment).commit();
 
-
-
-
         receiveThread = new ReceiveThread();
         timer = new Timer();
-
-
         usbConnector = new UsbConnector(this);
         try {
             usbConnector.connect();
