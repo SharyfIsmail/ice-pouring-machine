@@ -7,20 +7,16 @@ import com.oim.icepouring.usb.UsbCan;
 import com.oim.icepouring.usb.UsbCanCdr;
 import com.oim.icepouring.usb.UsbConnector;
 
+import java.io.IOException;
+import java.util.Arrays;
 import java.util.Map;
 import java.util.Objects;
 
 public class ReceiveThread extends Thread {
 
-short i = 0;
-boolean ff = true;
     private Map<Integer, DataFromDeviceModel> canPackage ;
     private UsbConnector usbConnector ;
-private BatteryDataMonitor batteryDataMonitor;
-    public ReceiveThread(BatteryDataMonitor batteryDataMonitor)
-    {
-        this.batteryDataMonitor = batteryDataMonitor;
-    }
+
     public Map<Integer, DataFromDeviceModel> getCanPackage() {
         return canPackage;
     }
@@ -36,38 +32,38 @@ private BatteryDataMonitor batteryDataMonitor;
 
     @Override
     public void run() {
-    while(true)
-    {
-        try {
-            Thread.sleep(1000);
-            batteryDataMonitor.getBattery_0810FFFF_model().getSoc().set(i++);
-          //  batteryDataMonitor.getBattery_0810FFFF_model().getTotalBatteryVoltage().set(i++);
-            ff = !ff;
-            batteryDataMonitor.getBatteryState_0C07F301_model().getBatteryStatus().set(ff? "Battery Charging" : "Battery Off");
-            if(i == 100)
-                i = 0;
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-    }
-//        if(usbConnector.getUsbConnection() != null) {
-//            byte[] receiveBuffer = new byte[512];
-//            while (!isInterrupted()) {
-//                if(usbConnector.getUsbSerialPort().isOpen())
-//                {
-//                    try {
-//                        int len =usbConnector.getUsbSerialPort().read(receiveBuffer, 100);// time doesn't matter
-//                        if (len > 0) {
-//                            byte[] array = Arrays.copyOf(receiveBuffer, len);
-//                            objectMapping(array);
-//                        }
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//            }
+//    while(true)
+//    {
+//        try {
+//            Thread.sleep(1000);
+//            batteryDataMonitor.getBattery_0810FFFF_model().getSoc().set(i++);
+//          //  batteryDataMonitor.getBattery_0810FFFF_model().getTotalBatteryVoltage().set(i++);
+//            ff = !ff;
+//            batteryDataMonitor.getBatteryState_0C07F301_model().getBatteryStatus().set(ff? "Battery Charging" : "Battery Off");
+//            if(i == 100)
+//                i = 0;
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
 //        }
+//
+//    }
+        if(usbConnector.getUsbConnection() != null) {
+            byte[] receiveBuffer = new byte[512];
+            while (!isInterrupted()) {
+                if(usbConnector.getUsbSerialPort().isOpen())
+                {
+                    try {
+                        int len =usbConnector.getUsbSerialPort().read(receiveBuffer, 100);// time doesn't matter
+                        if (len > 0) {
+                            byte[] array = Arrays.copyOf(receiveBuffer, len);
+                            objectMapping(array);
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
     }
     private void objectMapping(byte[] data)
     {

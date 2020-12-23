@@ -28,18 +28,21 @@ public class SpeedPanelFragment  extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.speed_fragment, null);
         arcProgress =   v.findViewById(R.id.speedPanel);
-        
-        arcProgress.setSuffixText(" ");
-        arcProgress.setBottomText("km/h");
-        arcProgress.setProgress(0);
-        arcProgress.setTextColor(Color.parseColor("#FF0000"));
-        arcProgress.setUnfinishedStrokeColor(Color.parseColor("#FF0000"));
-        arcProgress.setFinishedStrokeColor(Color.parseColor("#FF0000"));
-
+        setSpeedPanelProperties(arcProgress);
         return v;
     }
     public ArcProgress getArcProgress()
     {
         return  arcProgress;
+    }
+    private void setSpeedPanelProperties(ArcProgress arcProgress)
+    {
+        arcProgress.setSuffixText(" ");
+        arcProgress.setBottomText("km/h");
+        arcProgress.setTextSize(30);
+        arcProgress.setProgress(0);
+        arcProgress.setTextColor(Color.parseColor("#F4F0F0"));
+        arcProgress.setUnfinishedStrokeColor(Color.parseColor("#FFFFFF"));
+        arcProgress.setFinishedStrokeColor(Color.parseColor("#FFFF00"));
     }
 }
