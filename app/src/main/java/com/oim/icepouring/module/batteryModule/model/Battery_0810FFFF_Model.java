@@ -99,7 +99,8 @@ public class Battery_0810FFFF_Model implements DataFromDeviceModel, ErrorChecker
     int value = (Integer) object;
         if(value == 255)
         {
-            errors.add("Battery undefined");
+            if(!errors.contains("Battery undefined"))
+                errors.add("Battery undefined");
         }
         else
         {
@@ -107,6 +108,7 @@ public class Battery_0810FFFF_Model implements DataFromDeviceModel, ErrorChecker
         }
         if(value <40 && value > 10)
         {
+            if(!errors.contains("Battery half charged"))
             errors.add("Battery half charged");
         }
         else
@@ -116,7 +118,8 @@ public class Battery_0810FFFF_Model implements DataFromDeviceModel, ErrorChecker
         }
         if(value <= 10)
         {
-            errors.add("Low Battery");
+            if(!errors.contains("Low Battery"))
+                errors.add("Low Battery");
 
         }
         else

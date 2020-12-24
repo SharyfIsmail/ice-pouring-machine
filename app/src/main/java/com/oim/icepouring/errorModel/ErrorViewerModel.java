@@ -32,28 +32,28 @@ public class ErrorViewerModel implements ErrorService
     public void updateErrorList() {
         if(!batteryDataMonitor.getBatteryState_0C07F301_model().checkErrorExistence())
         {
-            list.add(batteryDataMonitor.getBatteryState_0C07F301_model().getErrorList());
+            if(!list.contains(batteryDataMonitor.getBatteryState_0C07F301_model().getErrorList()))
+                 list.add(batteryDataMonitor.getBatteryState_0C07F301_model().getErrorList());
         }
         else
-        {
             list.remove(batteryDataMonitor.getBatteryState_0C07F301_model().getErrorList());
-        }
+
         if(!batteryDataMonitor.getBattery_0810FFFF_model().checkErrorExistence())
         {
-            list.add(batteryDataMonitor.getBattery_0810FFFF_model().getErrorList());
+            if(!list.contains(batteryDataMonitor.getBattery_0810FFFF_model().getErrorList()))
+                 list.add(batteryDataMonitor.getBattery_0810FFFF_model().getErrorList());
         }
         else
-        {
             list.remove(batteryDataMonitor.getBattery_0810FFFF_model().getErrorList());
-        }
+
         if(!batteryDataMonitor.getContactors_0CFEF301_model().checkErrorExistence())
         {
-            list.add(batteryDataMonitor.getContactors_0CFEF301_model().getErrorList());
+            if(!list.contains(batteryDataMonitor.getContactors_0CFEF301_model().getErrorList()))
+                 list.add(batteryDataMonitor.getContactors_0CFEF301_model().getErrorList());
         }
         else
-        {
             list.remove(batteryDataMonitor.getContactors_0CFEF301_model().getErrorList());
-        }
+
     }
 
     @Override

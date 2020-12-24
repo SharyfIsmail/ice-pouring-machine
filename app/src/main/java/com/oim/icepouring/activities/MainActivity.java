@@ -83,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         receiveThread.setDaemon(true);
         receiveThread.setUnitIdMapper(batteryDataMonitor.getDataModel());
+        receiveThread.setUsbConnector(usbConnector);
         timer.schedule(errorViewer, 1000, 1500);
         receiveThread.start();
     }
@@ -104,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
     private void setSocBarProperties(CircleProgress batteySocProgressBar)
     {
         batteySocProgressBar.setTextSize(30);
-        batteySocProgressBar.setBackgroundColor(Color.parseColor("#616161"));
+        batteySocProgressBar.setUnfinishedColor(Color.parseColor("#616161"));
+        batteySocProgressBar.setBackgroundColor(Color.parseColor("#322F2F"));
     }
 }

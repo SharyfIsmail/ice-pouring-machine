@@ -47,73 +47,83 @@ public class Contactors_0CFEF301_Model implements DataFromDeviceModel, ErrorChec
         short data = (Short) object;
         if((data & 1) == 1)
         {
-            errors.add("Precharge OpenLoad");
+            if(!errors.contains("Precharge OpenLoad"))
+               errors.add("Precharge OpenLoad");
         }
         else
             errors.remove("Precharge OpenLoad");
         if((data & 2) == 2)
         {
-            errors.add("Precharge Welding");
+            if(!errors.contains("Precharge OpenLoad"))
+               errors.add("Precharge OpenLoad");
         }
         else
             errors.remove("Precharge Welding");
 
         if((data & 4) == 4)
         {
-            errors.add("Precharge feedback broken");
+            if(!errors.contains("Precharge feedback broken"))
+                errors.add("Precharge feedback broken");
         }
         else
             errors.remove( "Precharge feedback broken");
         if((data & 8) == 8)
         {
-            errors.add( "Plus Open Load");
+            if(!errors.contains("Plus Open Load"))
+                errors.add( "Plus Open Load");
         }
         else
             errors.remove("Plus Open Load");
 
         if((data & 16) == 16)
         {
-            errors.add("Plus Welding");
+            if(!errors.contains("Plus Welding"))
+                errors.add("Plus Welding");
         }
         else
             errors.remove("Plus Welding");
         if((data  & 32) == 32)
         {
-            errors.add("Plus relay feedback is broken");
+            if(!errors.contains("Plus relay feedback is broken"))
+                errors.add("Plus relay feedback is broken");
         }
         else
             errors.remove("Plus relay feedback is broken");
         if((data & 64) == 64)
         {
-            errors.add( "Ground relay Open Load");
+            if(!errors.contains("Ground relay Open Load"))
+                errors.add( "Ground relay Open Load");
         }
         else
             errors.remove("Ground relay Open Load");
         if((data & 128) == 128)
         {
-            errors.add("Ground relay Welding");
+            if(!errors.contains("Ground relay Welding"))
+                errors.add("Ground relay Welding");
         }
         else
             errors.remove("Ground relay Welding");
         if((data  & 256) == 256)
         {
-            errors.add("Ground relay feedback is broken");
+            if(!errors.contains("Ground relay feedback is broken"))
+                errors.add("Ground relay feedback is broken");
         }
         else
             errors.remove("Ground relay feedback is broken");
         if((data & 512)== 512)
         {
-            errors.add("Voltage Sensor is Broken");
+            if(!errors.contains("Voltage Sensor is Broken"))
+                errors.add("Voltage Sensor is Broken");
         }
         else
             errors.remove("Voltage Sensor is Broken");
         if((data  & 1024) == 1024)
         {
-            errors.add("Current Sensor is Broken");
+            if(!errors.contains("Current Sensor is Broken"))
+                errors.add("Current Sensor is Broken");
         }
         else
             errors.remove("Current Sensor is Broken");
-
     }
 
     public boolean checkErrorExistence()

@@ -39,6 +39,7 @@ public class SpeedPanelFragment  extends Fragment {
     {
         arcProgress.setSuffixText(" ");
         arcProgress.setBottomText("km/h");
+        arcProgress.setBottomTextSize(30);
         arcProgress.setTextSize(30);
         arcProgress.setProgress(0);
         arcProgress.setTextColor(Color.parseColor("#F4F0F0"));

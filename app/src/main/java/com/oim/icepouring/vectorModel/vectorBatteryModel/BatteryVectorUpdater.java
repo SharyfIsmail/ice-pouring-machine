@@ -152,7 +152,7 @@ public class BatteryVectorUpdater implements VectorUpdater {
         @Override
         public void run() {
           boolean  isTrue = activityMainBinding.getContactors0CFEF301Model().getIsErrorPresented().get();
-          setVisible(isContactorServiceable = isTrue || isBatterySocRed || isBatteryDamaged, activityMainBinding.batteryErrorActive);
+          setVisible((isContactorServiceable = isTrue )|| isBatterySocRed || isBatteryDamaged, activityMainBinding.batteryErrorActive);
         }
       });
     }
