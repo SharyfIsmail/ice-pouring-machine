@@ -19,7 +19,7 @@ import com.oim.icepouring.databinding.ActivityMainBinding;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-public class Battery_0810FFFF_Model implements DataFromDeviceModel, ErrorChecker {
+public class Battery_0810FFFF_Model implements DataFromDeviceModel, ErrorChecker<Short> {
     private Battery_0810FFFF battery_0810FFFF;
     private ObservableInt current;
     private ObservableShort soc;
@@ -83,10 +83,10 @@ public class Battery_0810FFFF_Model implements DataFromDeviceModel, ErrorChecker
     public void updateModel() {
         current.set(battery_0810FFFF.getCurrent());
         soc.set(battery_0810FFFF.getSoc());
+        registerError(battery_0810FFFF.getSoc());
         maxTemp.set(battery_0810FFFF.getMaxTemp());
         minTemp.set(battery_0810FFFF.getMinTemp());
         totalBatteryVoltage.set(battery_0810FFFF.getTotalBatteryVoltage());
-        registerError(battery_0810FFFF.getSoc());
     }
 
     @Override
@@ -95,42 +95,36 @@ public class Battery_0810FFFF_Model implements DataFromDeviceModel, ErrorChecker
     }
 
     @Override
-    public void registerError(Object object) {
-    int value = (Integer) object;
+    public void registerError(Short object) {
+        int value =  object;
         if(value == 255)
         {
             if(!errors.contains("Battery undefined"))
                 errors.add("Battery undefined");
         }
         else
-        {
             errors.remove("Battery undefined");
-        }
-        if(value <40 && value > 10)
+
+        if(value < 40 && value > 10)
         {
             if(!errors.contains("Battery half charged"))
-            errors.add("Battery half charged");
+                errors.add("Battery half charged");
         }
         else
-        {
             errors.remove("Battery half charged");
 
-        }
         if(value <= 10)
         {
             if(!errors.contains("Low Battery"))
                 errors.add("Low Battery");
-
         }
         else
-        {
             errors.remove("Low Battery");
-        }
     }
 
     @Override
     public boolean checkErrorExistence() {
-        return errors.isEmpty();
+        return !errors.isEmpty();
     }
 
     @Override

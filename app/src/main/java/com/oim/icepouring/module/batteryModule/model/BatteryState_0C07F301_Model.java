@@ -16,7 +16,7 @@ import com.oim.icepouring.databinding.ActivityMainBinding;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-public class BatteryState_0C07F301_Model implements DataFromDeviceModel, ErrorChecker {
+public class BatteryState_0C07F301_Model implements DataFromDeviceModel, ErrorChecker<String> {
     private BatteryState_0C07F301 batteryState_0C07F301;
     private ObservableField<String> batteryStatus ;
     private List<String> errors;
@@ -46,25 +46,21 @@ public class BatteryState_0C07F301_Model implements DataFromDeviceModel, ErrorCh
     }
 
     @Override
-    public void registerError(Object object) {
-        String error = (String) object;
-        if(error.equals("Battery On With Error"))
+    public void registerError(String object) {
+        if(object.equals("Battery On With Error") || object.equals("Battery Off With Error"))
         {
-            errors.clear();
-            errors.add(error);
-        }
-        else if(error.equals("Battery Off With Error"))
-        {
-            errors.clear();
-            errors.add(error);
+            if(!errors.contains(object))
+                errors.add(object);
         }
         else
+        {
             errors.clear();
+        }
     }
 
     @Override
     public boolean checkErrorExistence() {
-        return  errors.isEmpty();
+        return  !errors.isEmpty();
     }
 
     @Override

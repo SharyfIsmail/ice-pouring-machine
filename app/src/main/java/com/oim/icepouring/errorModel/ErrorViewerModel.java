@@ -3,6 +3,7 @@ package com.oim.icepouring.errorModel;
 import androidx.databinding.ObservableField;
 
 import com.oim.icepouring.module.batteryModule.BatteryDataMonitor;
+import com.oim.icepouring.module.batteryModule.ErrorChecker;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,30 +31,9 @@ public class ErrorViewerModel implements ErrorService
 
     @Override
     public void updateErrorList() {
-        if(!batteryDataMonitor.getBatteryState_0C07F301_model().checkErrorExistence())
-        {
-            if(!list.contains(batteryDataMonitor.getBatteryState_0C07F301_model().getErrorList()))
-                 list.add(batteryDataMonitor.getBatteryState_0C07F301_model().getErrorList());
-        }
-        else
-            list.remove(batteryDataMonitor.getBatteryState_0C07F301_model().getErrorList());
-
-        if(!batteryDataMonitor.getBattery_0810FFFF_model().checkErrorExistence())
-        {
-            if(!list.contains(batteryDataMonitor.getBattery_0810FFFF_model().getErrorList()))
-                 list.add(batteryDataMonitor.getBattery_0810FFFF_model().getErrorList());
-        }
-        else
-            list.remove(batteryDataMonitor.getBattery_0810FFFF_model().getErrorList());
-
-        if(!batteryDataMonitor.getContactors_0CFEF301_model().checkErrorExistence())
-        {
-            if(!list.contains(batteryDataMonitor.getContactors_0CFEF301_model().getErrorList()))
-                 list.add(batteryDataMonitor.getContactors_0CFEF301_model().getErrorList());
-        }
-        else
-            list.remove(batteryDataMonitor.getContactors_0CFEF301_model().getErrorList());
-
+        checkErrorList(batteryDataMonitor.getBattery_0810FFFF_model(), batteryDataMonitor.getBattery_0810FFFF_model().getErrorList());
+        checkErrorList(batteryDataMonitor.getBatteryState_0C07F301_model(), batteryDataMonitor.getBatteryState_0C07F301_model().getErrorList());
+        checkErrorList(batteryDataMonitor.getContactors_0CFEF301_model(), batteryDataMonitor.getContactors_0CFEF301_model().getErrorList());
     }
 
     @Override
@@ -64,10 +44,10 @@ public class ErrorViewerModel implements ErrorService
         else {
             int errorCount = 0;
             for (int i = 0; i < list.size(); i++)
-                 errorCount += list.get(i).size();
+                errorCount += list.get(i).size();
 
             errorIndex = errorIndex >= errorCount ? errorIndex = 1 : ++errorIndex;
-            errorField.set(errorIndex + "/" + errorCount + ":" + list.get(indexColumn).get(indexLine));
+            errorField.set(errorIndex + "/" + errorCount + list.get(indexColumn).get(indexLine));
 
             indexLine = (indexLine == list.get(indexColumn).size() - 1)? indexLine = 0 : ++indexLine ;
             indexColumn = (indexLine   == 0 ) ? indexColumn == list.size()- 1  ? indexColumn = 0 :++indexColumn  : indexColumn;
@@ -84,5 +64,21 @@ public class ErrorViewerModel implements ErrorService
 
     public void setBatteryDataMonitor(BatteryDataMonitor batteryDataMonitor) {
         this.batteryDataMonitor = batteryDataMonitor;
+    }
+    private void checkErrorList(ErrorChecker errorChecker , List<String> list)
+    {
+        if(errorChecker.checkErrorExistence())
+        {
+            if(!this.list.contains(list))
+                this.list.add(list);
+        }
+        else
+        {
+            if(this.list.contains(list))
+            {
+                this.list.remove(list);
+                indexColumn = indexLine = 0;
+            }
+        }
     }
 }

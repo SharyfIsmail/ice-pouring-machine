@@ -17,6 +17,5 @@ public class ErrorViewer extends TimerTask  {
     {
         errorViewerModel.updateErrorList();
         errorViewerModel.updateField();
-
     }
 }

@@ -25,10 +25,11 @@ public class BatteryVectorUpdater implements VectorUpdater {
   private  volatile  boolean isBatterySocRed;
   private  volatile boolean isBatteryDamaged;
   private  volatile boolean isContactorServiceable;
+  private volatile boolean isBatterySocYellow;
 
   private SpeedPanelFragment speedPanelFragment;
   private ChargeFragment chargeFragment;
-  private int i = 0;
+
   public void  setSpeedPanelFragment(SpeedPanelFragment fragment)
   {
     speedPanelFragment = fragment;
@@ -74,8 +75,9 @@ public class BatteryVectorUpdater implements VectorUpdater {
               setVisible(true, activityMainBinding.charging);
               isBatteryDamaged = false;
               setVisible(isBatteryDamaged  || isBatterySocRed || isContactorServiceable, activityMainBinding.batteryErrorActive);
-              fragmentManager.beginTransaction().replace(activityMainBinding.flFragment.getId(), chargeFragment).commit();
+              setVisible(!isBatterySocRed && !isBatteryDamaged && !isContactorServiceable && isBatterySocYellow , activityMainBinding.batteryAlertActive);
 
+              fragmentManager.beginTransaction().replace(activityMainBinding.flFragment.getId(), chargeFragment).commit();
               break;
 
             case "Battery On With Error" :
@@ -84,6 +86,7 @@ public class BatteryVectorUpdater implements VectorUpdater {
               setVisible(false, activityMainBinding.charging);
               isBatteryDamaged = true;
               setVisible(isBatteryDamaged  || isBatterySocRed || isContactorServiceable, activityMainBinding.batteryErrorActive);
+              setVisible(!isBatterySocRed && !isBatteryDamaged && !isContactorServiceable && isBatterySocYellow , activityMainBinding.batteryAlertActive);
 
               fragmentManager.beginTransaction().replace(activityMainBinding.flFragment.getId(), speedPanelFragment).commit();
               break;
@@ -91,13 +94,11 @@ public class BatteryVectorUpdater implements VectorUpdater {
             default:
               setVisible(true, activityMainBinding.uncharging);
               setVisible(false, activityMainBinding.charging);
-
               isBatteryDamaged = false;
               setVisible(isBatteryDamaged  || isBatterySocRed || isContactorServiceable, activityMainBinding.batteryErrorActive);
+              setVisible(!isBatterySocRed && !isBatteryDamaged && !isContactorServiceable && isBatterySocYellow , activityMainBinding.batteryAlertActive);
 
               fragmentManager.beginTransaction().replace(activityMainBinding.flFragment.getId(), speedPanelFragment).commit();
-
-
           }
         }
       });
@@ -127,10 +128,11 @@ public class BatteryVectorUpdater implements VectorUpdater {
           activityMainBinding.charging.setColorFilter(socValue >= 40 ?
                   Color.parseColor("#00CC00") : socValue < 20 ?
                   Color.parseColor("#FF0000") : Color.parseColor("#FF6600"));
-          setVisible(isBatteryDamaged = (socValue == 255) , activityMainBinding.batterySocError);
-          setVisible(isBatteryDamaged || isBatterySocRed || isContactorServiceable,  activityMainBinding.batteryErrorActive);
-          setVisible((isBatterySocRed = socValue <= 10) || isBatteryDamaged || isBatterySocRed , activityMainBinding.batteryErrorActive );
-          setVisible(!isBatterySocRed && !isBatteryDamaged && !isContactorServiceable && (socValue < 40 && socValue > 10), activityMainBinding.batteryAlertActive);
+
+          setVisible(isBatteryDamaged = (socValue == 255)  , activityMainBinding.batterySocError);
+          setVisible((isBatterySocRed = socValue <= 10)|| isBatteryDamaged || isBatterySocRed  || isContactorServiceable , activityMainBinding.batteryErrorActive );
+
+          setVisible(!isBatterySocRed && !isBatteryDamaged && !isContactorServiceable && (isBatterySocYellow = (socValue < 40 && socValue > 10)), activityMainBinding.batteryAlertActive);
 
           activityMainBinding.batteySocProgressBar.setProgress(socValue != 255 ? socValue : 0);
 
@@ -153,6 +155,7 @@ public class BatteryVectorUpdater implements VectorUpdater {
         public void run() {
           boolean  isTrue = activityMainBinding.getContactors0CFEF301Model().getIsErrorPresented().get();
           setVisible((isContactorServiceable = isTrue )|| isBatterySocRed || isBatteryDamaged, activityMainBinding.batteryErrorActive);
+          setVisible(!isBatterySocRed && !isBatteryDamaged && !isContactorServiceable && isBatterySocYellow , activityMainBinding.batteryAlertActive);
         }
       });
     }
