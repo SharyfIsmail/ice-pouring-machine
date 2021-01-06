@@ -65,18 +65,18 @@ public class ErrorViewerModel implements ErrorService
     public void setBatteryDataMonitor(BatteryDataMonitor batteryDataMonitor) {
         this.batteryDataMonitor = batteryDataMonitor;
     }
-    private void checkErrorList(ErrorChecker errorChecker , List<String> list)
+    private void checkErrorList(ErrorChecker<?> errorChecker , List<String> listV)
     {
         if(errorChecker.checkErrorExistence())
         {
-            if(!this.list.contains(list))
-                this.list.add(list);
+            if(!this.list.contains(listV))
+                this.list.add(listV);
         }
         else
         {
-            if(this.list.contains(list))
+            if(this.list.contains(listV))
             {
-                this.list.remove(list);
+                this.list.remove(listV);
                 indexColumn = indexLine = 0;
             }
         }
