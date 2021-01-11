@@ -65,7 +65,7 @@ public class ErrorViewerModel implements ErrorService
     public void setBatteryDataMonitor(BatteryDataMonitor batteryDataMonitor) {
         this.batteryDataMonitor = batteryDataMonitor;
     }
-    private void checkErrorList(ErrorChecker<?> errorChecker , List<String> listV)
+    private <T>void checkErrorList(ErrorChecker<T> errorChecker , List<String> listV)
     {
         if(errorChecker.checkErrorExistence())
         {
